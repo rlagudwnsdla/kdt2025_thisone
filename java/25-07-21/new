@@ -1,0 +1,17 @@
+select bookid, bookname, price from book;
+
+select bookid, bookname, price from book limit 5;
+
+select bookid, bookname, price from book order by price limit 5;
+
+set @rnum:=0;
+select * from (select bookid, bookname, price, (@rnum:=@rnum+1) as rownum from book) as numbered
+where rownum <5;
+
+select bookid, bookname, price, (@rnum:=@rnum+1) as rownum from book, (select @rnum := 0) as r;
+
+select bookid, bookname, price, (@rnum:=@rnum+1) as rownum from (select * from book order by price) b,(select @Rnum:=0)R
+where @rnum <5;
+
+select bookid, bookname, price, (@rnum:=@rnum+1) as rownum from (select*from book order by price)b, (select @rnum:=0)r
+where @rnum<5 limit 5;
