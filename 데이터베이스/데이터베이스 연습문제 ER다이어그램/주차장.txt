@@ -1,0 +1,68 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema parking_lot
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema parking_lot
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `parking_lot` DEFAULT CHARACTER SET utf8 ;
+USE `parking_lot` ;
+
+-- -----------------------------------------------------
+-- Table `parking_lot`.`parking_lot`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `parking_lot`.`parking_lot` (
+  `parking_lot_name` VARCHAR(45) NOT NULL,
+  `parking_floor` VARCHAR(45) NULL,
+  `cars_num` INT NULL,
+  `location` VARCHAR(45) NULL,
+  PRIMARY KEY (`parking_lot_name`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `parking_lot`.`parking_space`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `parking_lot`.`parking_space` (
+  `parking_lot_name` VARCHAR(45) NOT NULL,
+  `parking_number` INT NULL,
+  `employee_num` INT NULL,
+  `parking_lot_parking_lot_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`parking_lot_name`),
+  INDEX `fk_parking_space_parking_lot1_idx` (`parking_lot_parking_lot_name` ASC) VISIBLE,
+  CONSTRAINT `fk_parking_space_parking_lot1`
+    FOREIGN KEY (`parking_lot_parking_lot_name`)
+    REFERENCES `parking_lot`.`parking_lot` (`parking_lot_name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `parking_lot`.`employee`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `parking_lot`.`employee` (
+  `employee_num` INT NOT NULL,
+  `employee_name` VARCHAR(45) NULL,
+  `Internal_phone_number` VARCHAR(45) NULL,
+  `driver_license` VARCHAR(45) NULL,
+  `parking_space_parking_lot_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`employee_num`),
+  INDEX `fk_employee_parking_space1_idx` (`parking_space_parking_lot_name` ASC) VISIBLE,
+  CONSTRAINT `fk_employee_parking_space1`
+    FOREIGN KEY (`parking_space_parking_lot_name`)
+    REFERENCES `parking_lot`.`parking_space` (`parking_lot_name`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

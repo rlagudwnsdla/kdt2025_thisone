@@ -1,0 +1,41 @@
+-- -----------------------------------------------------
+USE affiliation;
+
+-- 1. department
+CREATE TABLE IF NOT EXISTS department (
+  departmentid INT NOT NULL,
+  departmentname VARCHAR(45),
+  PRIMARY KEY (departmentid)
+) ENGINE=InnoDB;
+
+-- 2. employee
+CREATE TABLE IF NOT EXISTS employee (
+  employeeid INT NOT NULL,
+  employeename VARCHAR(45),
+  position VARCHAR(45),
+  departmentid INT,
+  PRIMARY KEY (employeeid),
+  FOREIGN KEY (departmentid) REFERENCES department(departmentid)
+) ENGINE=InnoDB;
+
+-- 3. dependents
+CREATE TABLE IF NOT EXISTS dependents (
+  num INT NOT NULL,
+  name VARCHAR(45),
+  relationship VARCHAR(45),
+  employee_employeeid INT,
+  PRIMARY KEY (num),
+  FOREIGN KEY (employee_employeeid) REFERENCES employee(employeeid)
+) ENGINE=InnoDB;
+
+-- 4. work_record
+CREATE TABLE IF NOT EXISTS work_record (
+  num INT NOT NULL,
+  period INT,
+  position VARCHAR(45),
+  departmentid INT,
+  employeeid INT,
+  PRIMARY KEY (num),
+  FOREIGN KEY (departmentid) REFERENCES department(departmentid),
+  FOREIGN KEY (employeeid) REFERENCES employee(employeeid)
+) ENGINE=InnoDB;
