@@ -1,0 +1,44 @@
+1-a : 후보키 : A, B, C
+
+1-b : 후보키 : A
+
+1-c : 후보키 : ABD, ADE
+
+1-d : 후보키 : ABC
+
+---------------------------------------------------------
+
+2-A : 후보키 : shipname,date
+
+2-B : 
+       1릴레이션 : {shipname, date, voyageID, cargo}
+       2릴레이션 : {shipname, date, port}
+       3릴레이션 : {shipname, shiptype}
+
+2-C : 
+       1릴레이션 : {shipname, date, voyageID}
+       2릴레이션 : {shipname, date, port}
+       3릴레이션 : {shipname, shiptype}
+       4릴레이션 : {voyageID, cargo}
+
+2-D : 
+       1릴레이션 :{shipname, date, voyageID}
+       2릴레이션 : {shipname, date, port}
+       3릴레이션 : {shipname, shiptype}
+       4릴레이션 : {voyageID, cargo}
+
+---------------------------------------------------------
+
+3-A : 
+       {partnumber, desccription}
+       {supplier, suppaddress}
+       {partnumber, supplier, price}
+
+3-B : 2NF
+
+3-C : 2정규화
+
+3-D : 
+       {partnumber, supplier, price}
+       {supplier, suppaddress}
+       {partnumber, desccription}
